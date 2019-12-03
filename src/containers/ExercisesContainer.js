@@ -5,7 +5,7 @@ class ExercisesContainer extends React.Component {
   render() {
     return (
       <div className="ui grid container">
-        {this.props.allExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise}/>)}
+        {this.props.shownExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise}/>)}
       </div>
     )
   }

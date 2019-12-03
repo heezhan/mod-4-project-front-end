@@ -9,7 +9,9 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      allExercises: []
+      allExercises: [],
+      selectedMuscleGroup: "All",
+      shownExercises: []
     }
   }
 
@@ -17,17 +19,44 @@ class App extends React.Component {
     fetch("http://localhost:3000/exercises")
     .then(response => response.json())
     .then(exerciseArray => this.setState({
-      allExercises: exerciseArray
+      allExercises: exerciseArray,
+      shownExercises: exerciseArray
     })
     )
+
+
   }
+
+  handleMuscleGroupChange = (event) => {
+    let filteredExercises = []
+
+    if (event.target.value === "All") {
+      filteredExercises = this.state.allExercises
+    } else {
+      filteredExercises = this.state.allExercises.filter( exercise => exercise.muscle_group === event.target.value )
+    }
+
+    this.setState({
+      selectedMuscleGroup: event.target.value,
+      shownExercises: filteredExercises
+    })
+  }
+
+
+
+
+
+  
 
   render() {
     return (
       <div className="App">
         <NavBar />
-        <FiltersContainer />
-        <ExercisesContainer allExercises={this.state.allExercises}/>
+        <FiltersContainer 
+          selectedMuscleGroup={this.state.selectedMuscleGroup}
+          handleMuscleGroupChange={this.handleMuscleGroupChange}
+        />
+        <ExercisesContainer shownExercises={this.state.shownExercises}/>
       </div>
     );
   }
