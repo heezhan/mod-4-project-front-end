@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from './components/NavBar';
 import FiltersContainer from './containers/FiltersContainer';
 import ExercisesContainer from './containers/ExercisesContainer';
+import ExerciseCard from './components/ExerciseCard';
 import {Route} from "react-router-dom";
 
 class App extends React.Component {
@@ -116,6 +117,15 @@ class App extends React.Component {
           removeFromSelectedExercises={this.removeFromSelectedExercises}
         />
         </Route>
+        <Route exact path="/exercises/:id" render={(props) => {
+          let id = parseInt(props.match.params.id)
+          let foundExercise = this.state.allExercises.find(exercise => exercise.id === id)
+          if (foundExercise === undefined) {
+            return null
+          } else {
+            return <ExerciseCard exerciseObj={foundExercise}/>
+          }
+        }}/>
       </div>
     );
   }
