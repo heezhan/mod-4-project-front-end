@@ -6,7 +6,7 @@ class FiltersContainer extends React.Component {
     let { selectedMuscleGroup, handleMuscleGroupChange } = this.props
 
     return (
-      <div>
+      <div className="ui vertical left sidebar menu visible">
         <form>
           <label>
             <input 
