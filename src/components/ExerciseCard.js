@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 class ExerciseCard extends React.Component {
   constructor() {
@@ -33,6 +34,11 @@ class ExerciseCard extends React.Component {
           </div>
           <iframe src={video_url}></iframe>
         </div>
+          <Link to={`/exercises/${id}`}>
+            <button>
+              Show Details
+            </button>
+          </Link>
       </div> 
     ) 
   }

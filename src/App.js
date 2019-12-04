@@ -5,6 +5,7 @@ import FiltersContainer from './containers/FiltersContainer';
 import ExercisesContainer from './containers/ExercisesContainer';
 import ExerciseCard from './components/ExerciseCard';
 import {Route} from "react-router-dom";
+import ExerciseDetails from './components/ExerciseDetails';
 
 class App extends React.Component {
 
@@ -123,7 +124,8 @@ class App extends React.Component {
           if (foundExercise === undefined) {
             return null
           } else {
-            return <ExerciseCard exerciseObj={foundExercise}/>
+            return <ExerciseDetails exerciseObj={foundExercise}/>
+            // return <ExerciseCard exerciseObj={foundExercise}/>
           }
         }}/>
       </div>
