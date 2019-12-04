@@ -6,18 +6,19 @@ import ExercisesContainer from './containers/ExercisesContainer';
 import ExerciseCard from './components/ExerciseCard';
 import {Route} from "react-router-dom";
 import ExerciseDetails from './components/ExerciseDetails';
+import Login from './components/Login';
 
 class App extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      userId: 1, //DON'T HARD CODE THIS
+      currentUser: {},
       allExercises: [],
       selectedMuscleGroup: "All",
       shownExercises: [],
       routineTitle: "",
-      selectedExercises: []
+      selectedExercises: [],
     }
   }
 
@@ -99,11 +100,34 @@ class App extends React.Component {
       selectedExercises: updatedCopy
     })
   }
+
+  fetchUser = (loginState) => {
+    fetch( "http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify( {
+        username: loginState.username,
+        password: loginState.password
+      } )
+    } )
+      .then(resp => resp.json())
+      .then(responseObj =>
+        this.setState({
+        currentUser: responseObj
+      }))
+  }
   
   render() {
     return (
       <div className="App">
         <NavBar />
+
+        <Route exact path="/login">
+          <Login fetchUser={this.fetchUser}/>
+        </Route>
 
         <Route exact path="/">
           <FiltersContainer 
@@ -132,8 +156,6 @@ class App extends React.Component {
           }
         }}/>
         
-        <Route></Route>
-
       </div>
     );
   }
