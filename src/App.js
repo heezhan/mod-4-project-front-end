@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from './components/NavBar';
 import FiltersContainer from './containers/FiltersContainer';
 import ExercisesContainer from './containers/ExercisesContainer';
+import {Route} from "react-router-dom";
 
 class App extends React.Component {
 
@@ -23,8 +24,6 @@ class App extends React.Component {
       shownExercises: exerciseArray
     })
     )
-
-
   }
 
   handleMuscleGroupChange = (event) => {
@@ -41,22 +40,18 @@ class App extends React.Component {
       shownExercises: filteredExercises
     })
   }
-
-
-
-
-
   
-
   render() {
     return (
       <div className="App">
         <NavBar />
+        <Route exact path="/">
         <FiltersContainer 
           selectedMuscleGroup={this.state.selectedMuscleGroup}
           handleMuscleGroupChange={this.handleMuscleGroupChange}
         />
         <ExercisesContainer shownExercises={this.state.shownExercises}/>
+        </Route>
       </div>
     );
   }
