@@ -15,7 +15,7 @@ class App extends React.Component {
       selectedMuscleGroup: "All",
       shownExercises: [],
       routineTitle: "",
-      selectedExercises: [1, 2, 3] //DON'T HARD CODE THIS
+      selectedExercises: []
     }
   }
 
@@ -83,6 +83,20 @@ class App extends React.Component {
     } )
   }
 
+  addToSelectedExercises = (id) => {
+    this.setState({
+      selectedExercises: [...this.state.selectedExercises, id]
+    })
+  }
+
+  removeFromSelectedExercises = (id) => {
+    let copy = [...this.state.selectedExercises]
+    let updatedCopy = copy.filter(copy => copy !== id )
+
+    this.setState({
+      selectedExercises: updatedCopy
+    })
+  }
   
   render() {
     return (
@@ -98,6 +112,8 @@ class App extends React.Component {
           routineTitle={this.state.routineTitle}
           changeRoutineTitle={this.changeRoutineTitle}
           createNewRoutine={this.createNewRoutine}
+          addToSelectedExercises={this.addToSelectedExercises}
+          removeFromSelectedExercises={this.removeFromSelectedExercises}
         />
         </Route>
       </div>

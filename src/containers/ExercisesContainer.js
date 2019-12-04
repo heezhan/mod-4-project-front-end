@@ -3,7 +3,7 @@ import ExerciseCard from '../components/ExerciseCard'
 
 class ExercisesContainer extends React.Component {
   render() {
-    let { shownExercises, routineTitle, changeRoutineTitle, createNewRoutine } = this.props
+    let { shownExercises, routineTitle, changeRoutineTitle, createNewRoutine, addToSelectedExercises, removeFromSelectedExercises } = this.props
     return (
       <div>
         <input 
@@ -20,7 +20,7 @@ class ExercisesContainer extends React.Component {
         </button>
 
         <div className="ui grid container">
-          {shownExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise}/>)}
+          {shownExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise} addToSelectedExercises={addToSelectedExercises} removeFromSelectedExercises={removeFromSelectedExercises} />)}
         </div>
 
       </div>
