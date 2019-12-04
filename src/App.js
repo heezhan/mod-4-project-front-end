@@ -104,20 +104,23 @@ class App extends React.Component {
     return (
       <div className="App">
         <NavBar />
+
         <Route exact path="/">
-        <FiltersContainer 
-          selectedMuscleGroup={this.state.selectedMuscleGroup}
-          handleMuscleGroupChange={this.handleMuscleGroupChange}
-        />
-        <ExercisesContainer 
-          shownExercises={this.state.shownExercises}
-          routineTitle={this.state.routineTitle}
-          changeRoutineTitle={this.changeRoutineTitle}
-          createNewRoutine={this.createNewRoutine}
-          addToSelectedExercises={this.addToSelectedExercises}
-          removeFromSelectedExercises={this.removeFromSelectedExercises}
-        />
+          <FiltersContainer 
+            selectedMuscleGroup={this.state.selectedMuscleGroup}
+            handleMuscleGroupChange={this.handleMuscleGroupChange}
+          />
+
+          <ExercisesContainer 
+            shownExercises={this.state.shownExercises}
+            routineTitle={this.state.routineTitle}
+            changeRoutineTitle={this.changeRoutineTitle}
+            createNewRoutine={this.createNewRoutine}
+            addToSelectedExercises={this.addToSelectedExercises}
+            removeFromSelectedExercises={this.removeFromSelectedExercises}
+          />
         </Route>
+
         <Route exact path="/exercises/:id" render={(props) => {
           let id = parseInt(props.match.params.id)
           let foundExercise = this.state.allExercises.find(exercise => exercise.id === id)
@@ -128,6 +131,9 @@ class App extends React.Component {
             // return <ExerciseCard exerciseObj={foundExercise}/>
           }
         }}/>
+        
+        <Route></Route>
+
       </div>
     );
   }
