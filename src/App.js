@@ -10,9 +10,12 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
+      userId: 1, //DON'T HARD CODE THIS
       allExercises: [],
       selectedMuscleGroup: "All",
-      shownExercises: []
+      shownExercises: [],
+      routineTitle: "",
+      selectedExercises: [1, 2, 3] //DON'T HARD CODE THIS
     }
   }
 
@@ -41,6 +44,45 @@ class App extends React.Component {
     })
   }
 
+  changeRoutineTitle = (event) => {
+    this.setState( { routineTitle: event.target.value } )
+  }
+
+  createNewRoutine = () => {
+    console.log("POSTing to backend to create new routine")
+    fetch( "http://localhost:3000/routines", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify( { 
+        user_id: this.state.userId,
+        title: this.state.routineTitle 
+      } )
+    } )
+      .then( resp => resp.json() )
+      .then( routineObj => this.addExercisesToRoutine(routineObj.id) )
+  }
+
+  addExercisesToRoutine = (routineId) => {
+    this.state.selectedExercises.forEach( exercise => {
+      fetch( "http://localhost:3000/routine_exercises", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify( {
+          routine_id: routineId,
+          exercise_id: exercise
+        } )
+      } )
+        .then( resp => resp.json() )
+        .then( wtf => console.log(wtf) )
+    } )
+  }
+
   
   render() {
     return (
@@ -51,7 +93,12 @@ class App extends React.Component {
           selectedMuscleGroup={this.state.selectedMuscleGroup}
           handleMuscleGroupChange={this.handleMuscleGroupChange}
         />
-        <ExercisesContainer shownExercises={this.state.shownExercises}/>
+        <ExercisesContainer 
+          shownExercises={this.state.shownExercises}
+          routineTitle={this.state.routineTitle}
+          changeRoutineTitle={this.changeRoutineTitle}
+          createNewRoutine={this.createNewRoutine}
+        />
         </Route>
       </div>
     );
