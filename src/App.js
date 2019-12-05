@@ -4,16 +4,17 @@ import NavBar from './components/NavBar';
 import FiltersContainer from './containers/FiltersContainer';
 import ExercisesContainer from './containers/ExercisesContainer';
 import ExerciseCard from './components/ExerciseCard';
-import {Route} from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 import ExerciseDetails from './components/ExerciseDetails';
 import Login from './components/Login';
+import RoutinesContainer from './containers/RoutinesContainer';
 
 class App extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      currentUser: {},
+      currentUser: null,
       allExercises: [],
       selectedMuscleGroup: "All",
       shownExercises: [],
@@ -114,10 +115,15 @@ class App extends React.Component {
       } )
     } )
       .then(resp => resp.json())
-      .then(responseObj =>
-        this.setState({
-        currentUser: responseObj
-      }))
+      .then(responseObj =>{
+        responseObj.status === 500 ? (
+          alert("Incorrect username or password")
+        ) : (
+          this.setState({
+            currentUser: responseObj
+          })
+        )
+      })
   }
   
   render() {
@@ -127,6 +133,16 @@ class App extends React.Component {
 
         <Route exact path="/login">
           <Login fetchUser={this.fetchUser}/>
+        </Route>
+
+        {
+          this.state.currentUser ? ( 
+          <Redirect to={`/routines`} />
+          ) : null
+        }
+
+        <Route exact path={`/routines`}>
+          <RoutinesContainer currentUser={this.state.currentUser}/>
         </Route>
 
         <Route exact path="/">
