@@ -161,6 +161,11 @@ class App extends React.Component {
           />
         </Route>
 
+        <Route exact path="/routine_details">
+          <ExercisesContainer 
+          />
+        </Route>
+        
         <Route exact path="/exercises/:id" render={(props) => {
           let id = parseInt(props.match.params.id)
           let foundExercise = this.state.allExercises.find(exercise => exercise.id === id)
