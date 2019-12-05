@@ -26,7 +26,7 @@ class ExerciseCard extends React.Component {
     let {id, name, video_url, exercise_type, muscle_group} = this.props.exerciseObj
     
     return ( 
-      <div className="ui card eight wide column">
+      <div className="ui card eight wide column margin-class">
         <input type="checkbox" value={id} checked={this.state.checked} onChange={this.toggleChecked}/>
         <div className="content">
           <div className="header">

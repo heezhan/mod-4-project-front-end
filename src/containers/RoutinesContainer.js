@@ -5,7 +5,7 @@ const RoutinesContainer = ( {currentUser} ) => {
   return (
     <div>
       {
-        currentUser.routines.map( routine => <RoutineCard routine={routine} /> )
+        currentUser.routines.map( routine => <RoutineCard key={routine.id} routine={routine} /> )
       }
     </div>
   )

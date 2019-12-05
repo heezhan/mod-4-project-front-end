@@ -20,3 +20,16 @@
 .App-link {
   color: #09d3ac;
 }
+
+.margin-class {
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+.filters-container {
+  height:100% !important;
+}
+
+.input-option {
+  float: left;
+}

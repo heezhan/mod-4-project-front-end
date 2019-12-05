@@ -8,6 +8,7 @@ import {Route, Redirect} from "react-router-dom";
 import ExerciseDetails from './components/ExerciseDetails';
 import Login from './components/Login';
 import RoutinesContainer from './containers/RoutinesContainer';
+import RoutineDetails from './components/RoutineDetails';
 
 class App extends React.Component {
 
@@ -61,17 +62,18 @@ class App extends React.Component {
         "Accept": "application/json"
       },
       body: JSON.stringify( { 
-        user_id: this.state.userId,
+        user_id: this.state.currentUser.id,
         title: this.state.routineTitle 
       } )
     } )
       .then( resp => resp.json() )
-      .then( routineObj => this.addExercisesToRoutine(routineObj.id) )
+      .then( routineObj => {
+        this.addExercisesToRoutine(routineObj.id)} )
   }
 
   addExercisesToRoutine = (routineId) => {
-    this.state.selectedExercises.forEach( exercise => {
-      fetch( "http://localhost:3000/routine_exercises", {
+    let newArray = this.state.selectedExercises.map( exercise => {
+      return fetch( "http://localhost:3000/routine_exercises", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,9 +84,24 @@ class App extends React.Component {
           exercise_id: exercise
         } )
       } )
-        .then( resp => resp.json() )
-        .then( wtf => console.log(wtf) )
-    } )
+    })
+
+    Promise.all(newArray)
+    .then( () => {
+      fetch("http://localhost:3000/finduser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          id: this.state.currentUser.id
+        })
+      }).then(resp => resp.json())
+      .then(userObj => this.setState({
+        currentUser: userObj
+      }))
+    })
   }
 
   addToSelectedExercises = (id) => {
@@ -146,25 +163,36 @@ class App extends React.Component {
         </Route>
 
         <Route exact path="/">
-          <FiltersContainer 
-            selectedMuscleGroup={this.state.selectedMuscleGroup}
-            handleMuscleGroupChange={this.handleMuscleGroupChange}
-          />
+          <div className="ui grid">
+            
+            <div className="ui four wide column">
+              <FiltersContainer 
+                selectedMuscleGroup={this.state.selectedMuscleGroup}
+                handleMuscleGroupChange={this.handleMuscleGroupChange}
+              />
+            </div>
 
-          <ExercisesContainer 
-            shownExercises={this.state.shownExercises}
-            routineTitle={this.state.routineTitle}
-            changeRoutineTitle={this.changeRoutineTitle}
-            createNewRoutine={this.createNewRoutine}
-            addToSelectedExercises={this.addToSelectedExercises}
-            removeFromSelectedExercises={this.removeFromSelectedExercises}
-          />
+            <div className="ui twelve wide column">
+              <ExercisesContainer 
+                shownExercises={this.state.shownExercises}
+                routineTitle={this.state.routineTitle}
+                changeRoutineTitle={this.changeRoutineTitle}
+                createNewRoutine={this.createNewRoutine}
+                addToSelectedExercises={this.addToSelectedExercises}
+                removeFromSelectedExercises={this.removeFromSelectedExercises}
+              />
+            </div>
+
+          </div>
         </Route>
 
-        <Route exact path="/routine_details">
-          <ExercisesContainer 
-          />
-        </Route>
+        <Route exact path="/routine_details/:id" render={
+          (props) => 
+          {
+            let id = parseInt(props.match.params.id)
+            return <RoutineDetails id={id} currentUser={this.state.currentUser}/>
+          }
+        }/>
         
         <Route exact path="/exercises/:id" render={(props) => {
           let id = parseInt(props.match.params.id)
@@ -173,7 +201,6 @@ class App extends React.Component {
             return null
           } else {
             return <ExerciseDetails exerciseObj={foundExercise}/>
-            // return <ExerciseCard exerciseObj={foundExercise}/>
           }
         }}/>
         

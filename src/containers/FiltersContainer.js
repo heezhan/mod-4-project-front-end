@@ -5,40 +5,47 @@ class FiltersContainer extends React.Component {
 
     let { selectedMuscleGroup, handleMuscleGroupChange } = this.props
 
+    // ui vertical left sidebar menu visible
     return (
-      <div className="ui vertical left sidebar menu visible">
+      <div>
         <form>
-          <label>
-            <input 
-              type="radio" 
-              value="All" 
-              checked={selectedMuscleGroup === "All"} 
-              onChange={(event) => handleMuscleGroupChange(event)}
-            />
-            All Muscle Groups
-          </label>
-          
-          <h1>Upper Body</h1>
-
-            <label>
-              <input 
-              type="radio" 
-              value="Abs" 
-              checked={selectedMuscleGroup === "Abs"} 
-              onChange={(event) => handleMuscleGroupChange(event)} 
-            />
-              Abs
-            </label>
-
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
-                value="Chest" 
-                checked={selectedMuscleGroup === "Chest"}
-                onChange={(event) => handleMuscleGroupChange(event)} 
-                />
-              Chest
+                value="All" 
+                checked={selectedMuscleGroup === "All"} 
+                onChange={(event) => handleMuscleGroupChange(event)}
+              />
+              All Muscle Groups
             </label>
+          </div>
+          <br/>
+          <h1>Upper Body</h1>
+
+            <div className="input-option">
+              <label>
+                <input 
+                type="radio" 
+                value="Abs" 
+                checked={selectedMuscleGroup === "Abs"} 
+                onChange={(event) => handleMuscleGroupChange(event)} 
+              />
+                Abs
+              </label>
+            </div>
+            <br/>
+           <div className="input-option">
+              <label>
+                <input 
+                  type="radio" 
+                  value="Chest" 
+                  checked={selectedMuscleGroup === "Chest"}
+                  onChange={(event) => handleMuscleGroupChange(event)} 
+                  />
+                Chest
+              </label>
+           </div>
 
             <label>
               <input 
