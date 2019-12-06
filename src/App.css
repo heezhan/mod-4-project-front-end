@@ -31,8 +31,16 @@
 }
 
 .input-option {
-  float: left;
+  position: sticky !important;
+  left: 5% !important;
 }
+
+.input-label {
+  position: sticky !important;
+  left: 5% !important;
+}
+
+
 
 #video {
   position: fixed;

@@ -100,7 +100,10 @@ class App extends React.Component {
         })
       }).then(resp => resp.json())
       .then(userObj => this.setState({
-        currentUser: userObj
+        currentUser: userObj,
+        selectedExercises: [],
+        routineTitle: "",
+        selectedMuscleGroup: "All",
       }))
     })
   }

@@ -21,32 +21,37 @@ class FiltersContainer extends React.Component {
             </label>
           </div>
           <br/>
-          <h1>Upper Body</h1>
 
-            <div className="input-option">
-              <label>
-                <input 
+          <h1 className="input-label">Upper Body</h1>
+          <br/>
+                
+          <div className="input-option">
+            <label>
+              <input 
+              type="radio" 
+              value="Abs" 
+              checked={selectedMuscleGroup === "Abs"} 
+              onChange={(event) => handleMuscleGroupChange(event)} 
+            />
+              Abs
+            </label>
+          </div>
+          <br/>
+
+          <div className="input-option">
+            <label>
+              <input 
                 type="radio" 
-                value="Abs" 
-                checked={selectedMuscleGroup === "Abs"} 
+                value="Chest" 
+                checked={selectedMuscleGroup === "Chest"}
                 onChange={(event) => handleMuscleGroupChange(event)} 
-              />
-                Abs
-              </label>
-            </div>
-            <br/>
-           <div className="input-option">
-              <label>
-                <input 
-                  type="radio" 
-                  value="Chest" 
-                  checked={selectedMuscleGroup === "Chest"}
-                  onChange={(event) => handleMuscleGroupChange(event)} 
-                  />
-                Chest
-              </label>
-           </div>
+                />
+              Chest
+            </label>
+          </div>
+          <br/>
 
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
@@ -56,7 +61,10 @@ class FiltersContainer extends React.Component {
               />
               Back
             </label>
+          </div>
+          <br/>
 
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
@@ -66,17 +74,23 @@ class FiltersContainer extends React.Component {
               />
               Shoulders
             </label>
+          </div>
+          <br/>
 
-            <label>
-              <input 
-                type="radio" 
-                value="Biceps" 
-                checked={selectedMuscleGroup === "Biceps"}
-                onChange={(event) => handleMuscleGroupChange(event)} 
-              />
-              Biceps
-            </label>
+          <div className="input-option">
+              <label>
+                <input 
+                  type="radio" 
+                  value="Biceps" 
+                  checked={selectedMuscleGroup === "Biceps"}
+                  onChange={(event) => handleMuscleGroupChange(event)} 
+                />
+                Biceps
+              </label>
+          </div>
+          <br/>
 
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
@@ -85,10 +99,13 @@ class FiltersContainer extends React.Component {
                 onChange={(event) => handleMuscleGroupChange(event)} 
               />
               Triceps
-            </label>          
+            </label>    
+          </div>  
+          <br/>    
 
-          <h1>Lower Body</h1>
+          <h1 className="input-label">Lower Body</h1>
 
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
@@ -98,7 +115,10 @@ class FiltersContainer extends React.Component {
               />
               Quadriceps
             </label>
+          </div>
+          <br/>
 
+          <div className="input-option">
             <label>
               <input 
                 type="radio" 
@@ -108,7 +128,7 @@ class FiltersContainer extends React.Component {
               />
               Hamstrings
             </label>
-
+          </div>
         </form>
       </div>
     )
