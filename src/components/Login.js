@@ -18,8 +18,8 @@ class Login extends React.Component {
     render () {
         return (
             <div>
-                <video autoPlay muted loop id="video">
-                    <source src="https://www.videvo.net/videvo_files/converted/2018_05/preview/180419_Boxing_02_04.mp470839.webm" type="video/mp4" />
+                <video autoPlay muted loop id="video" controls width="100%">
+                    <source src={require("./boxing.mp4")} type="video/mp4"/>
                 </video>
 
                 <div className="content">
