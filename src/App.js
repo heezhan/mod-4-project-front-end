@@ -16,11 +16,12 @@ class App extends React.Component {
     super()
     this.state = {
       currentUser: null,
+      loggedin: false,
       allExercises: [],
       selectedMuscleGroup: "All",
       shownExercises: [],
       routineTitle: "",
-      selectedExercises: [],
+      selectedExercises: []
     }
   }
 
@@ -133,20 +134,35 @@ class App extends React.Component {
     } )
       .then(resp => resp.json())
       .then(responseObj =>{
-        responseObj.status === 500 ? (
-          alert("Incorrect username or password")
-        ) : (
           this.setState({
-            currentUser: responseObj
+            currentUser: responseObj,
+            loggedin: !this.state.loggedin
           })
-        )
       })
+  }
+
+  rmvRoutinefromCurrentUser = (id) => {
+    let copyRoutines = [...this.state.currentUser.routines]
+    
+    let updatedCopyRoutines = copyRoutines.filter(routine => routine.id !== id)
+
+    this.setState({
+      currentUser: {...this.state.currentUser, routines:
+        updatedCopyRoutines}
+    })
+  }
+
+  handleLogOut = () => {
+    this.setState({
+      currentUser: null,
+      loggedin: false 
+    })
   }
   
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <NavBar handleLogOut={this.handleLogOut}/>
 
         <Route exact path="/login">
           <Login fetchUser={this.fetchUser}/>
@@ -154,56 +170,62 @@ class App extends React.Component {
 
         {
           this.state.currentUser ? ( 
-          <Redirect to={`/routines`} />
+            this.state.currentUser.routines.length > 0 ? (<Redirect to={`/routines`}/>) : (<Redirect to={`/`}/>)
           ) : null
         }
 
-        <Route exact path={`/routines`}>
-          <RoutinesContainer currentUser={this.state.currentUser}/>
-        </Route>
-
-        <Route exact path="/">
-          <div className="ui grid">
+        { this.state.loggedin ? (
+          <div>
+            <Route exact path={`/routines`}>
+              <RoutinesContainer currentUser={this.state.currentUser}/>
+            </Route>
+  
+            <Route exact path="/">
+              <div className="ui grid">
+                
+                <div className="ui four wide column">
+                  <FiltersContainer 
+                    selectedMuscleGroup={this.state.selectedMuscleGroup}
+                    handleMuscleGroupChange={this.handleMuscleGroupChange}
+                  />
+                </div>
+  
+                <div className="ui twelve wide column">
+                  <ExercisesContainer 
+                    shownExercises={this.state.shownExercises}
+                    routineTitle={this.state.routineTitle}
+                    changeRoutineTitle={this.changeRoutineTitle}
+                    createNewRoutine={this.createNewRoutine}
+                    addToSelectedExercises={this.addToSelectedExercises}
+                    removeFromSelectedExercises={this.removeFromSelectedExercises}
+                  />
+                </div>
+  
+              </div>
+            </Route>
+  
+            <Route exact path="/routine_details/:id" render={
+              (props) => 
+              {
+                let id = parseInt(props.match.params.id)
+                return <RoutineDetails id={id} currentUser={this.state.currentUser} rmvRoutinefromCurrentUser={this.rmvRoutinefromCurrentUser}/>
+              }
+            }/>
             
-            <div className="ui four wide column">
-              <FiltersContainer 
-                selectedMuscleGroup={this.state.selectedMuscleGroup}
-                handleMuscleGroupChange={this.handleMuscleGroupChange}
-              />
-            </div>
-
-            <div className="ui twelve wide column">
-              <ExercisesContainer 
-                shownExercises={this.state.shownExercises}
-                routineTitle={this.state.routineTitle}
-                changeRoutineTitle={this.changeRoutineTitle}
-                createNewRoutine={this.createNewRoutine}
-                addToSelectedExercises={this.addToSelectedExercises}
-                removeFromSelectedExercises={this.removeFromSelectedExercises}
-              />
-            </div>
-
-          </div>
-        </Route>
-
-        <Route exact path="/routine_details/:id" render={
-          (props) => 
-          {
-            let id = parseInt(props.match.params.id)
-            return <RoutineDetails id={id} currentUser={this.state.currentUser}/>
-          }
-        }/>
-        
-        <Route exact path="/exercises/:id" render={(props) => {
-          let id = parseInt(props.match.params.id)
-          let foundExercise = this.state.allExercises.find(exercise => exercise.id === id)
-          if (foundExercise === undefined) {
-            return null
-          } else {
-            return <ExerciseDetails exerciseObj={foundExercise}/>
-          }
-        }}/>
-        
+            <Route exact path="/exercises/:id" render={(props) => {
+              let id = parseInt(props.match.params.id)
+              let foundExercise = this.state.allExercises.find(exercise => exercise.id === id)
+              if (foundExercise === undefined) {
+                return null
+              } else {
+                return <ExerciseDetails exerciseObj={foundExercise}/>
+              }
+            }}/>
+          </div>) : (
+            <Redirect to={"/login"} />
+          )
+        }
+      
       </div>
     );
   }

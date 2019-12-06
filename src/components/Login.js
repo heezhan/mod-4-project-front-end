@@ -18,12 +18,19 @@ class Login extends React.Component {
     render () {
         return (
             <div>
-                <h4>Username <input type="text" name="username" value={this.state.username} onChange={this.loginHandler}/></h4>
-                <h4>Password <input type="password" name="password" value={this.state.password} onChange={this.loginHandler}/></h4>
-                <button onClick={() => this.props.fetchUser(this.state)}>Login</button>
-                <br/>
-                <br/>
-                <button>Create Account</button>
+                <video autoPlay muted loop id="video">
+                    <source src="https://www.videvo.net/videvo_files/converted/2018_05/preview/180419_Boxing_02_04.mp470839.webm" type="video/mp4" />
+                </video>
+
+                <div className="content">
+                    <h4>Username <input type="text" name="username" value={this.state.username} onChange={this.loginHandler}/></h4>
+                    <h4>Password <input type="password" name="password" value={this.state.password} onChange={this.loginHandler}/></h4>
+                    <button onClick={() => this.props.fetchUser(this.state)}>Login</button>
+                    <br/>
+                    <br/>
+                    <button onClick={() => this.props.fetchUser(this.state)}>Create Account</button>
+                </div>
+                
             </div>
         )
     }

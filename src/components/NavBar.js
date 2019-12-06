@@ -19,7 +19,7 @@ class NavBar extends React.Component {
         </Link>
 
         <div className="right menu">
-          <a class="item">
+          <a class="item" onClick={this.props.handleLogOut}>
             Logout
           </a>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ExerciseCard from '../components/ExerciseCard'
+import {Link} from 'react-router-dom'
 
 class ExercisesContainer extends React.Component {
   render() {
@@ -13,11 +14,13 @@ class ExercisesContainer extends React.Component {
           placeholder="Title your exercise"
         />
 
-        <button
-          onClick={createNewRoutine}
-        >
-          Create New Routine
-        </button>
+        <Link to="/routines">
+          <button
+            onClick={createNewRoutine}
+          >
+            Create New Routine
+          </button>
+        </Link>
 
         <div className="ui grid container">
           {shownExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise} addToSelectedExercises={addToSelectedExercises} removeFromSelectedExercises={removeFromSelectedExercises} />)}
