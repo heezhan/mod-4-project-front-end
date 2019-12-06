@@ -165,7 +165,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <NavBar handleLogOut={this.handleLogOut}/>
 
         <Route exact path="/login">
           <Login fetchUser={this.fetchUser}/>
@@ -174,11 +173,12 @@ class App extends React.Component {
         {
           this.state.currentUser ? ( 
             this.state.currentUser.routines.length > 0 ? (<Redirect to={`/routines`}/>) : (<Redirect to={`/`}/>)
-          ) : null
-        }
+            ) : null
+          }
 
         { this.state.loggedin ? (
           <div>
+          <NavBar handleLogOut={this.handleLogOut}/>
             <Route exact path={`/routines`}>
               <RoutinesContainer currentUser={this.state.currentUser}/>
             </Route>
