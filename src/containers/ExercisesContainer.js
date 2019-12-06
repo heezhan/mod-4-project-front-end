@@ -7,20 +7,23 @@ class ExercisesContainer extends React.Component {
     let { shownExercises, routineTitle, changeRoutineTitle, createNewRoutine, addToSelectedExercises, removeFromSelectedExercises } = this.props
     return (
       <div>
-        <input 
-          type="text"
-          value={routineTitle}
-          onChange={changeRoutineTitle}
-          placeholder="Title your exercise"
-        />
+        <div className="ui input">
+          <input
+            type="text"
+            value={routineTitle}
+            onChange={changeRoutineTitle}
+            placeholder="Title your exercise"
+          />
 
-        <Link to="/routines">
-          <button
-            onClick={createNewRoutine}
-          >
-            Create New Routine
-          </button>
-        </Link>
+          <Link to="/routines">
+            <button
+              className="ui inverted green button"
+              onClick={createNewRoutine}
+              >
+              Create New Routine
+            </button>
+          </Link>
+        </div>
 
         <div className="ui grid container">
           {shownExercises.map(exercise => <ExerciseCard key={exercise.id} exerciseObj={exercise} addToSelectedExercises={addToSelectedExercises} removeFromSelectedExercises={removeFromSelectedExercises} />)}

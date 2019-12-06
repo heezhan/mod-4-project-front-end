@@ -27,15 +27,18 @@ class ExerciseCard extends React.Component {
     
     return ( 
       <div className="ui card eight wide column margin-class">
-        <input type="checkbox" value={id} checked={this.state.checked} onChange={this.toggleChecked}/>
+        <input className="exercise-checkbox" type="checkbox" value={id} checked={this.state.checked} onChange={this.toggleChecked}/>
         <div className="content">
           <div className="header">
             {name}
           </div>
           <iframe src={video_url}></iframe>
+          <p><em>{muscle_group}</em></p>
         </div>
           <Link to={`/exercises/${id}`}>
-            <button>
+            <button
+              class="ui inverted secondary button"
+            >
               Show Details
             </button>
           </Link>

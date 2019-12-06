@@ -33,6 +33,7 @@
 .input-option {
   position: sticky !important;
   left: 5% !important;
+  font-size: 16px !important;
 }
 
 .input-label {
@@ -60,3 +61,21 @@
   left: 40%;
 }
 
+a {
+  color: black;
+}
+
+.exercise-checkbox {
+  transform: scale(1)
+
+}
+
+.button {
+  margin-bottom: 10px !important;
+}
+
+.input {
+  width: 600px !important;
+  height: 36px !important;
+  margin-bottom: 10px !important;
+}

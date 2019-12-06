@@ -12,8 +12,9 @@ const RoutineExercise = (props) => {
                 </div>
                 <iframe src={video_url}></iframe>
             </div>
+            <p><em>{muscle_group}</em></p>
             <Link to={`/exercises/${id}`}>
-                <button>
+                <button class="ui inverted secondary button">
                 Show Details
                 </button>
             </Link>

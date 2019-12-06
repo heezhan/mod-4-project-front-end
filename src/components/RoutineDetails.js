@@ -15,10 +15,11 @@ const RoutineDetails = ( {id, currentUser: {routines}, rmvRoutinefromCurrentUser
     return (
         <div>
             <Link to="/routines">
-                <button onClick={deleteRoutine}>
+                <button className="ui inverted red button right" onClick={deleteRoutine}>
                     Delete Routine
                 </button>
             </Link>
+            <br/>
 
             <div className="ui grid container">
                 {foundRoutine.exercises.map(exercise => <RoutineExercise key={exercise.id} exercise={exercise}/>)}

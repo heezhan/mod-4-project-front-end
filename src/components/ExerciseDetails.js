@@ -4,7 +4,12 @@ const ExerciseDetails = ( { exerciseObj: {muscle_group, name, video_url, exercis
   return (
     <div>
       <h1>{name}</h1>
-      <iframe src={video_url} frameborder="0"></iframe>
+      <iframe 
+        src={video_url} 
+        frameborder="0" 
+        width= "966px"
+        height="543px"
+      />
       <h3>Muscle Group</h3>
       <p>{muscle_group}</p>
 
