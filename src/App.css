@@ -52,3 +52,20 @@
   left: 40%;
 }
 
+.ui.inverted.segment {
+  background: dimgrey !important;
+} 
+
+.exo-font {
+  font-family: 'Exo', sans-serif !important;
+  margin-top: 0px !important;
+}
+
+a {
+  color: black
+}
+
+.resize {
+  width: 100px;
+  height: 100px;
+}
