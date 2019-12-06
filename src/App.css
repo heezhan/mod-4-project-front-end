@@ -42,7 +42,7 @@
   min-height: 100%;
 }
 
-.content {
+.login-content {
   position: fixed;
   bottom: 50%;
   background: rgba(0, 0, 0, 0.5);
